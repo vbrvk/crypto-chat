@@ -6,10 +6,9 @@
 1. Client1 create chat room for 2 ETH addresses (own and Client2)
 2. Server generate link (/some-random-shit)
 3. Server allow connect to this link only for 2 ETH addresses
-4. Client1 generate pubKey1 for Diffie-Hellman and wait for Client2
 
 ## CONNECT TO CHAT
-1. Client2 sign link by ETHPrivKey2, if no valid - redirect to /
+1. Client1 generate pubKey1 for Diffie-Hellman and wait for Client2
 2. Server send pubKey1 and generator params to Client2
 3. Client2 generate pubKey2 and commonSecretKey
 4. Client2 send pubKey2 to server

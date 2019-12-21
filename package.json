@@ -1,0 +1,35 @@
+{
+  "name": "crypto-chat",
+  "version": "1.0.0",
+  "description": "*All request (except creating chat room) are required to pass the SIGN (link signed by ETH PrivKey).*",
+  "main": "index.js",
+  "dependencies": {
+    "@babel/preset-env": "7.7.6",
+    "body-parser": "1.19.0",
+    "cors": "2.8.5",
+    "ethereumjs-util": "6.2.0",
+    "express": "4.17.1",
+    "ky": "0.16.1",
+    "ms": "2.1.2",
+    "uuidv4": "6.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.7.5",
+    "@babel/node": "7.7.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "babel-node server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borovik96/crypto-chat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/borovik96/crypto-chat/issues"
+  },
+  "homepage": "https://github.com/borovik96/crypto-chat#readme"
+}
