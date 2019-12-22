@@ -20,7 +20,7 @@ class Api {
   }
 
   async createChatRoom(addresses) {
-    return this.request.post('new-room', { json: { addresses }}).json();
+    return this.request.post('new-room', { json: { addresses } }).json();
     // return {
     //   ok: true,
     //   id: 'test_id', // id of room, also link to chat
@@ -83,6 +83,14 @@ class Api {
       }
      */
   }
+
+  async getNewMessages(chatId, lastMessageTime) {
+    return this.request.get(`new-messages/${chatId}`, { searchParams: { lastMessageTime }}).json();
+  }
+
+  async sendMessage(chatId, text) {
+    return this.request.post(`new-message/${chatId}`, { json: { text } }).json();
+  }
 }
 
-export default Api;
+export default new Api();

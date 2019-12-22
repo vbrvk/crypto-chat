@@ -1,6 +1,4 @@
-import Api from '../api'
-
-const api = new Api();
+import api from '../api'
 
 const createRoom = async (addresses) => {
   const { id } = await api.createChatRoom(addresses);

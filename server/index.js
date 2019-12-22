@@ -26,7 +26,7 @@ const checkSign = (req, res, next) => {
   const pub = ecrecover(hashPersonalMessage(Buffer.from(chatId)), sig.v, sig.r, sig.s);
   const address = bufferToHex(pubToAddress(pub));
 
-  if (!store.rooms[chatId].addresses.includes(address)) {
+  if (!store.rooms[chatId].addresses.includes(address.toLowerCase())) {
     return res.json({
       ok: false,
       error: 403
@@ -49,9 +49,14 @@ app.post('/new-room', async (req, res) => {
 
   // create room
   store.rooms[id] = {
-    addresses,
-    ready: {}
+    addresses: addresses.map(a => a.toLowerCase()),
+    ready: {},
+    messages: [
+      // { time: number, text: string, address: string }
+    ],
   }
+
+  console.log(`Created room ${id} with addresses: ${addresses}`);
 
   return res.json({
     id,
@@ -117,6 +122,28 @@ app.get('/second-pubkey/:chatId', checkSign, async (req, res) => {
 
   return res.json({ ok: false, errorMessage: 'pubKey2 is not ready yet' });
 })
+
+app.get('/new-messages/:chatId', checkSign, async (req, res) => {
+  const { chatId } = req.params;
+  const { lastMessageTime } = req.query;
+  const { messages } = store.rooms[chatId];
+
+  return res.json({
+    ok: true,
+    messages: messages.filter(m => m.time > lastMessageTime)
+      .sort((a, b) => a.time - b.time)
+  });
+});
+
+app.post('/new-message/:chatId', checkSign, async (req, res) => {
+  const { chatId } = req.params;
+  const { text } = req.body;
+
+  const { messages } = store.rooms[chatId];
+  messages.push({ time: Date.now(), text, address: req.ethAddress });
+
+  return res.json({ ok: true });
+});
 
 app.use(function (req, res) {
   res.setHeader('Content-Type', 'text/plain');

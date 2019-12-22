@@ -8,7 +8,7 @@ import { createDiffieHellman } from 'diffie-hellman';
  * alice.generateSecret(bob.getPublic());
  */
 class KeyGenerator {
-  constructor(prime = 512, generator = undefined) {
+  constructor(prime = 128, generator = undefined) {
     console.log('Started key generation');
     this.client = createDiffieHellman(prime, generator);
     console.log('Ended key generation');
